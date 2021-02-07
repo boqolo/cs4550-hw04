@@ -8,7 +8,8 @@ defmodule Practice.Calc do
     # This should handle +,-,*,/ with order of operations,
     # but doesn't need to handle parens.
     expr
-    |> String.split(~r/\s+/)
+    |> String.split(~r/\s+/) # splitting on all whitespace here
+    # |> Enum.chunk_by(fn(c) -> String.contains?(c, ["+", "-"]) end)
     |> hd
     |> parse_float
     |> :math.sqrt()
