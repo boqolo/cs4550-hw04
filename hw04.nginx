@@ -2,7 +2,7 @@ server {
     listen 80;
     listen [::]:80;
 
-    server_name hw04.measuringworm.com www.hw04.measuringworm.com
+    server_name hw04.measuringworm.com www.hw04.measuringworm.com;
 
     location / {
         proxy_pass http://localhost:4790;
