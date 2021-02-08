@@ -13,7 +13,8 @@ defmodule PracticeWeb.PageController do
 
   def calc(conn, %{"expr" => expr}) do
     y = Practice.calc(expr)
-    render conn, "calc.html", expr: expr, y: y
+    stripped = String.replace(expr, ~r/[\(\).]/, "") # strip parens
+    render conn, "calc.html", expr: stripped, y: y
   end
 
   def factor(conn, %{"x" => x}) do
