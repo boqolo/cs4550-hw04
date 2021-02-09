@@ -1,5 +1,5 @@
 defmodule Practice.Calc do
-  def parse_float(text) do
+  def parseFloat(text) do
     {num, _} = Float.parse(text)
     num
   end
@@ -9,24 +9,8 @@ defmodule Practice.Calc do
     # but doesn't need to handle parens.
     expr
     |> String.split(~r/[\s\(\).]/, trim: true)
-    # |> String.split(~r/\s+/) # splitting on all whitespace here
-    # |> Enum.chunk_by(fn(c) -> String.contains?(c, ["+", "-"]) end)
-    # |> hd
     |> shuntingYard([], [])
-    # |> inspect
-    # |> raise
     |> evalPostFixStrTokens([])
-    # |> inspect
-    # |> parse_float
-    # |> :math.sqrt()
-
-    # Hint:
-    # expr
-    # |> split
-    # |> tag_tokens  (e.g. [+, 1] => [{:op, "+"}, {:num, 1.0}]
-    # |> convert to postfix
-    # |> reverse to prefix
-    # |> evaluate as a stack calculator using pattern matching
   end
 
   # Helper function which checks if a string can be parsed as a number.
@@ -39,8 +23,8 @@ defmodule Practice.Calc do
     String.contains?("+-*/", strTok) && String.length(strTok) == 1
   end
 
-  # Helper function to determine if 'this' operator has greater or equal precedence with 'that' operator
-  # in terms of order of operation.
+  # Helper function to determine if 'this' operator has greater or equal
+  # precedence with 'that' operator in terms of order of operation.
   defp greaterThanEqPreced?(thisOperator, thatOperator) do
     precedence = %{"+" => 1, "-" => 1, "*" => 2, "/" => 2}
     precedence[thisOperator] <= precedence[thatOperator]
@@ -102,7 +86,7 @@ defmodule Practice.Calc do
                         newStack = [(x / y) | Enum.drop(stack, 2)]
                         evalPostFixStrTokens(tl(exprArr), newStack)
         # convert and push operands onto stack
-        _ -> parsedOperand = elem(Float.parse(hd(exprArr)), 0)
+        _ -> parsedOperand = parseFloat(hd(exprArr))
              evalPostFixStrTokens(tl(exprArr), [parsedOperand | stack])
       end
     end
