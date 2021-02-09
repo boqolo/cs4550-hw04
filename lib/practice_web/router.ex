@@ -1,6 +1,7 @@
 defmodule PracticeWeb.Router do
   use PracticeWeb, :router
 
+  # Middleware
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -9,17 +10,19 @@ defmodule PracticeWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  # middleware for taking json at an api endpoint
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/", PracticeWeb do
-    pipe_through :browser
+    pipe_through :browser # this is wrapping the req in middleware
 
     get "/", PageController, :index
     post "/double", PageController, :double
     post "/calc", PageController, :calc
     post "/factor", PageController, :factor
+    post "/palindrome", PageController, :palindrome?
     # TODO: Palindrome route
   end
 

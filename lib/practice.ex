@@ -7,13 +7,15 @@ defmodule Practice do
   if it comes from the database, an external API or others.
   """
 
+  alias Practice.{Calc, Palindrome}
+
   def double(x) do
     2 * x
   end
 
   def calc(expr) do
     # This is more complex, delegate to lib/practice/calc.ex
-    Practice.Calc.calc(expr)
+    Calc.calc(expr)
   end
 
   def factor(x) do
@@ -21,5 +23,7 @@ defmodule Practice do
     [1,2,x]
   end
 
-  # TODO: Add a palindrome? function.
+  def palindrome?(str) do
+    Palindrome.palindrome?(str)
+  end
 end

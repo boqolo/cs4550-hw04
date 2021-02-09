@@ -1,9 +1,4 @@
 defmodule Practice.Calc do
-  def parseFloat(text) do
-    {num, _} = Float.parse(text)
-    num
-  end
-
   def calc(expr) do
     # This should handle +,-,*,/ with order of operations,
     # but doesn't need to handle parens.
@@ -11,6 +6,11 @@ defmodule Practice.Calc do
     |> String.split(~r/[\s\(\).]/, trim: true)
     |> shuntingYard([], [])
     |> evalPostFixStrTokens([])
+  end
+
+  defp parseFloat(text) do
+    {num, _} = Float.parse(text)
+    num
   end
 
   # Helper function which checks if a string can be parsed as a number.

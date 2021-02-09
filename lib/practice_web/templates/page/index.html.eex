@@ -13,7 +13,7 @@
 
     <%= form_for @conn, "/calc", fn f -> %>
       <p>Enter expression: <%= text_input f, :expr, placeholder: "2 + 3 * 4" %></p>
-      <p><%= submit "Evaluate" %></p>
+      <p><%= submit "Evaluate It" %></p>
     <% end %>
   </div>
 </div>
@@ -30,8 +30,9 @@
   <div class="column">
     <h2>Palindrome?</h2>
 
-    <p>TODO: Add a form here that checks if a string is a palindrome.</p>
-    <p>INPUT BOX</p>
-    <p>SUBMIT BUTTON</p>
+    <%= form_for @conn, "/palindrome", fn f -> %>
+      <p>Enter string: <%= t = text_input f, :str, placeholder: "racecar" %></p>
+      <p><%= submit "Check It" %></p>
+    <% end %>
   </div>
 </div>
