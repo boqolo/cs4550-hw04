@@ -3,14 +3,28 @@ defmodule Practice.Calc do
     # This should handle +,-,*,/ with order of operations,
     # but doesn't need to handle parens.
     expr
-    |> String.split(~r/[\s\(\).]/, trim: true)
-    |> shuntingYard([], [])
+    |> getListOfSplitOperatorsAndOperands()
+    |> shuntingYard([], []) # arrange list of tokens into post-fix
     |> evalPostFixStrTokens([])
   end
 
   defp parseFloat(text) do
     {num, _} = Float.parse(text)
     num
+  end
+
+  defp interpose(e1, e2, acc) do
+    cond do
+      Enum.empty?(e1) -> acc ++ e2
+      Enum.empty?(e2) -> acc ++ [hd(e1)]
+      true -> interpose(tl(e1), tl(e2), acc ++ [hd(e1), hd(e2)])
+    end
+  end
+
+  defp getListOfSplitOperatorsAndOperands(expr) do
+    numToks = String.split(expr, ~r/\W/, trim: true) # get operand str toks
+    opToks = String.split(expr, ~r/\s*\d*/, trim: true) # get operator str toks
+    interpose(numToks, opToks, [])
   end
 
   # Helper function which checks if a string can be parsed as a number.
