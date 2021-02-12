@@ -23,7 +23,7 @@ defmodule Practice.Calc do
 
   defp getListOfSplitOperatorsAndOperands(expr) do
     numToks = String.split(expr, ~r/\W/, trim: true) # get operand str toks
-    opToks = String.split(expr, ~r/\s*\d*/, trim: true) # get operator str toks
+    opToks = String.split(expr, ~r/\s*\d*/, trim: true) # get operator toks
     interpose(numToks, opToks, [])
   end
 
@@ -53,13 +53,12 @@ defmodule Practice.Calc do
       Enum.empty?(exprArr) -> output ++ stack
       # Add to output and recur
       num?(hd(exprArr)) -> shuntingYard(tl(exprArr),
-                                        # output ++ [hd(exprArr)],
                                         output ++ [hd(exprArr)],
                                         stack)
       # Depending on operator, push stack operators to output if greater
       # or equal precedence, push operator onto stack, recur
-      op?(hd(exprArr)) -> opsGreaterThanEqPreced = Enum.take_while(stack,
-                                  fn(op) -> greaterThanEqPreced?(hd(exprArr), op) end)
+      op?(hd(exprArr)) -> opsGreaterThanEqPreced = Enum.take_while(stack, fn(op) -> 
+                            greaterThanEqPreced?(hd(exprArr), op) end)
                           toDrop = length(opsGreaterThanEqPreced)
                           shuntingYard(tl(exprArr),
                                        output ++ opsGreaterThanEqPreced,
