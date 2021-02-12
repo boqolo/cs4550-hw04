@@ -23,7 +23,6 @@ defmodule PracticeWeb.Router do
     post "/calc", PageController, :calc
     post "/factor", PageController, :factor
     post "/palindrome", PageController, :palindrome?
-    # TODO: Palindrome route
   end
 
   # Other scopes may use custom stacks.
