@@ -18,6 +18,7 @@ defmodule PracticeWeb.PageController do
   end
 
   def factor(conn, %{"x" => x}) do
+    {x, _} = Integer.parse(x)
     factors = Practice.factor(x)
     y = Enum.join(factors, ", ")
     render conn, "factor.html", x: x, y: y
@@ -26,9 +27,9 @@ defmodule PracticeWeb.PageController do
   def palindrome?(conn, %{"str" => str}) do
     isPalindrome = Practice.palindrome?(str)
     res = if isPalindrome do
-      "#{str} IS indeed a palindrome!"
+      "\"#{str}\" IS indeed a palindrome!"
     else
-      "#{str} is sadly NOT a palindrome :-("
+      "\"#{str}\" is sadly NOT a palindrome :-("
     end
     render conn, "palindrome.html", res: res
   end
